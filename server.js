@@ -25,10 +25,26 @@ router.get('/', function(req, res){
 // GET jobs
 router.route('/jobs')
   .get(function(req, res) {
-    Job.find(function(err, jobs) {
+    query_object = {};
+    bank_name = req.query.bank;
+    if(bank_name) {
+      query_object.company = bank_name;
+    }
+    skill = req.query.skill;
+    if(skill) {
+       skill = skill.replace(/\./g, '-');
+       query_object['stats.' + skill] = { $gt: 0};
+    }
+    console.log("skill: " + skill);
+    console.log("bank: " + bank_name);
+    console.log("query_object: ");
+    console.log(query_object);     
+    Job.find(query_object).
+      exec(function(err, jobs) {
       if(err) {
         res.send(err);
       } else {
+        console.log('len: ' + jobs.length);
         res.json(jobs);
       }
     });
