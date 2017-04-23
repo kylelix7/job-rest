@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Job = require('./app/models/job');
 
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect('mongodb://localhost:27017/job_bank_db');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
