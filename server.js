@@ -25,6 +25,8 @@ router.get('/', function(req, res){
 // GET jobs
 router.route('/jobs')
   .get(function(req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     query_object = {};
     var bank_name = req.query.bank;
     if(bank_name) {
