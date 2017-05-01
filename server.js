@@ -47,13 +47,14 @@ router.route('/jobs')
     if(page_size) {
       page_size = parseInt(page_size);
     } else {
-      page_size = 20;
+      page_size = 2000;
     }
     var skip = page_size * page;
-    Job.find(query_object).
-      limit(page_size).
-      skip(skip).
-      exec(function(err, jobs) {
+    Job.find(query_object)
+      .sort('-post_date')
+      .limit(page_size)
+      .skip(skip)
+      .exec(function(err, jobs) {
       if(err) {
         res.send(err);
       } else {
