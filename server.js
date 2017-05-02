@@ -47,9 +47,10 @@ router.route('/jobs')
     if(page_size) {
       page_size = parseInt(page_size);
     } else {
-      page_size = 2000;
+      page_size = 20;
     }
     var skip = page_size * page;
+    
     Job.find(query_object)
       .sort('-post_date')
       .limit(page_size)
@@ -58,12 +59,13 @@ router.route('/jobs')
       if(err) {
         res.send(err);
       } else {
-        res.json(jobs);
+        Job.count(query_object, function(err, c) {
+          result = {count: c, jobs: jobs};
+          res.json(result);
+        });
       }
     });
   });
-// GET banks
-
 
 app.use('/api', router);
 
