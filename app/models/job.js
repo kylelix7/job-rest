@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var KeywordSchema = new Schema({keyword: String, count: String});
 var JobSchema = new Schema({
-	id: String,
+  id: String,
   company: String,
   title: String,
   post_date: String,

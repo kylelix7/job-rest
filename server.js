@@ -67,6 +67,25 @@ router.route('/jobs')
     });
   });
 
+// GET stats
+router.route('/stats')
+  .get(function(req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    var body = req.body;
+    if(!body) {
+      var result = {'error': 'empty request boyd'};
+      res.json(result);
+      res.sendStatus(400);
+      return;
+    } else {
+      var company = body.company || "all";
+      var skills = body.skills || [];
+      var limit = body.limit;
+      // sum all counts in each keyword
+    }
+  });
+
 app.use('/api', router);
 
 app.listen(port);
