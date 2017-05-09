@@ -68,6 +68,14 @@ router.route('/jobs')
   });
 
 // GET stats
+// db.jobs.aggregate(
+//   [{$group:
+//       {
+//         _id: null,
+//         total_java: { $sum: "$stats.Java"},
+//         total_Agile: {$sum: "$stats.Agile"}
+//       }
+//    } ])
 router.route('/stats')
   .get(function(req, res) {
     res.header("Access-Control-Allow-Origin", "*");
