@@ -228,7 +228,22 @@ router.route('/stats')
       if (err) {
         res.send(err);
       } else {
-        res.json(result);
+        var arr = [];
+        if(Array.isArray(result) && result.length > 0) {
+          result = result[0];
+          delete result['_id'];
+          for (var key in result) {
+            if (result.hasOwnProperty(key)) {
+              console.log('=====');
+              console.log(key);
+              arr.push({name: key, value: result[key]});
+            }
+          }
+          res.json(arr);
+        } else {
+          res.status(400);
+          res.send({'message': 'unexpect output'});
+        }
       }
     });
   });
