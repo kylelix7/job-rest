@@ -22,7 +22,6 @@ router.get('/', function (req, res) {
   res.json({message: 'done!'});
 });
 
-
 // GET jobs
 router.route('/jobs')
   .get(function (req, res) {
@@ -147,7 +146,7 @@ router.route('/stats')
           "Solr": {$sum: "$stats.Solr"},
           "Android": {$sum: "$stats.Android"},
           "iOS": {$sum: "$stats.iOS"},
-          "Net": {$sum: "$stats.-Net/ASP-NET"},
+          "-Net/ASP-NET": {$sum: "$stats.-Net/ASP-NET"},
           "C#": {$sum: "$stats.C#"},
           "Xamarin": {$sum: "$stats.Xarmarin"},
           "C": {$sum: "$stats.C"},
