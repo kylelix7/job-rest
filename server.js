@@ -246,6 +246,21 @@ router.route('/stats')
     });
   });
 
+router.route("/job_count")
+  .get(function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    query_object = {};
+    var bank_name = req.query.bank;
+    if (bank_name) {
+      query_object.company = bank_name;
+    }
+    Job.count(query_object, function(err, count){
+      var result = {count: count};
+      res.json(result);
+    });
+  });
+
 // TODO GET count
 router.route('/count')
   .get(function (req, res) {
