@@ -14,19 +14,20 @@ mongoose.connect('mongodb://localhost:27017/job_bank_db');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/build'));
 
 var port = process.env.PORT || 8080;
 var router = express.Router();
 
 router.get('/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   res.json({message: 'done!'});
 });
 
 // GET jobs
 router.route('/jobs')
   .get(function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Content-Type', 'application/json');
     query_object = {};
     var bank_name = req.query.bank;
     if (bank_name) {
@@ -78,9 +79,7 @@ router.route('/jobs')
 //    } ])
 router.route('/stats')
   .get(function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.setHeader('Content-Type', 'application/json');
     var bank = req.query.company;
     var match = {};
     if (bank) {
@@ -248,8 +247,7 @@ router.route('/stats')
 
 router.route("/job_count")
   .get(function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Content-Type', 'application/json');
     query_object = {};
     var bank_name = req.query.bank;
     if (bank_name) {
@@ -264,8 +262,7 @@ router.route("/job_count")
 // TODO GET count
 router.route('/count')
   .get(function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Content-Type', 'application/json');
     query_object = {};
     var bank_name = req.query.bank;
     if (bank_name) {
@@ -305,6 +302,11 @@ router.route('/count')
         }
       });
   });
+
+app.get('/', function (req, res) {
+  res.send('Hello World!')
+});
+
 app.use('/api', router);
 
 app.listen(port);
